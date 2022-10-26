@@ -40,7 +40,7 @@
             <TextBlock Grid.Column="3" Text="Actions" FontSize="17"/>
         </Grid>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" MaxHeight="700">
             <ItemsControl ItemsSource="{Binding Files}" VerticalAlignment="Top">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
