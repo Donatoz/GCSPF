@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="Neat.Views.PackageGeneralInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Neat.ViewModels"
+             xmlns:v="clr-namespace:Neat.Views"
+             xmlns:n="clr-namespace:Neat"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             
+             mc:Ignorable="d"
+             Background="White"
+             d:DataContext="{d:DesignInstance vm:PackageGeneralInfoViewModel}"
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <StackPanel Margin="20">
+        <TextBlock FontSize="40" Text="{Binding Model.Name, FallbackValue=Package 1}" Margin="0 0 0 5" Foreground="{StaticResource DarkGrayBrush}"/>
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+            <Border Background="{StaticResource GrayBrush}" CornerRadius="10" VerticalAlignment="Center">
+                <TextBlock Text="Local" VerticalAlignment="Center" Margin="7 2"/>
+            </Border>
+            <Border Background="{StaticResource GrayBrush}" CornerRadius="10" Margin="5 0 0 0" VerticalAlignment="Center">
+                <TextBlock Text="Dev" VerticalAlignment="Center" Margin="7 2"/>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock FontSize="24" Text="Package version:" FontWeight="Light" Margin="0 0 0 15"/>
+            <Border Background="{StaticResource GrayBrush}" CornerRadius="2" VerticalAlignment="Center" Margin="5 -10 0 0">
+                <TextBlock Text="{Binding Model.Version}" VerticalAlignment="Center" FontSize="16" Margin="7 2"/>
+            </Border>
+        </StackPanel>
+
+        <TextBlock FontSize="24" Text="Files" Margin="0 0 0 5" Foreground="{StaticResource DarkGrayBrush}"/>
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+            <TextBlock FontSize="18" Text="Total count:" FontWeight="Light"/>
+            <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrayBrush}" CornerRadius="5" VerticalAlignment="Center" Margin="5 0 0 0">
+                <TextBlock Text="{Binding FilesCount}" VerticalAlignment="Center" FontSize="15" Margin="4 0"/>
+            </Border>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
+            <TextBlock FontSize="18" Text="Total size:" FontWeight="Light"/>
+            <Border BorderThickness="1" BorderBrush="{StaticResource DarkGrayBrush}" CornerRadius="5" VerticalAlignment="Center" Margin="5 0 0 0">
+                <TextBlock VerticalAlignment="Center" FontSize="15" Margin="4 0">
+                    <Run Text="{Binding TotalSize, Mode=OneWay}"/><Run Text=" MB"/>
+                </TextBlock>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+            <TextBlock FontSize="24" Text="Sources" Foreground="{StaticResource DarkGrayBrush}"/>
+            <Viewbox VerticalAlignment="Center" Margin="8 5 0 0">
+                <Border BorderBrush="{StaticResource DarkGrayBrush}" BorderThickness="0.6" CornerRadius="10" Cursor="Hand">
+                    <TextBlock Text="Add" Margin="5 0" FontSize="15"/>
+                </Border>
+            </Viewbox>
+        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Sources}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0 0 0 5">
+                        <Border Background="White" CornerRadius="10">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="10" Direction="-90" BlurRadius="20" Opacity="0.2"/>
+                            </Border.Effect>
+                        </Border>
+                        <Border BorderThickness="0.6" CornerRadius="10" Padding="5" Background="White">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0 1" EndPoint="0 0">
+                                    <GradientStop Color="{StaticResource CyanColor}" Offset="1"/>
+                                    <GradientStop Color="White"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Type}" FontSize="20" Foreground="{StaticResource DarkGrayBrush}" Margin="0 0 0 5"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                    <TextBlock Text="{Binding Path}" Foreground="{StaticResource DarkGrayBrush}" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Remove" Visibility="{Binding Removable, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                                    <Button Content="Edit" Margin="5 0 0 0" Visibility="{Binding Editable, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                                    <Button Content="Fetch" Margin="5 0 0 0" Command="{Binding Fetch}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding AddExport}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock FontSize="24" Text="Exports" Foreground="{StaticResource DarkGrayBrush}"/>
+            <Viewbox VerticalAlignment="Center" Margin="8 5 0 0">
+                <Border BorderBrush="{StaticResource DarkGrayBrush}" BorderThickness="0.6" CornerRadius="10" Cursor="Hand">
+                    <TextBlock Text="Add" Margin="5 0" FontSize="15"/>
+                </Border>
+            </Viewbox>
+        </StackPanel>
+        <Border Background="#e2e2e2" Padding="6" Margin="0 0 0 10" Visibility="{Binding AddExportDialog, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}">
+            <StackPanel HorizontalAlignment="Left">
+                <TextBlock Text="Add new export" FontSize="20" Margin="0 0 0 20" Foreground="{StaticResource DarkGrayBrush}"/>
+
+                <TextBlock Text="Export path" FontSize="16"/>
+                <TextBox Width="500" Text="{Binding AddExportDialog.Path, Mode=TwoWay}" Margin="0 0 0 20" FontSize="16" Height="16  "/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Add" Command="{Binding AddExportDialog.Confirm}" MinWidth="100"/>
+                    <Button Content="Cancel" Command="{Binding AddExportDialog.Cancel}" MinWidth="100" Margin="5 0 0 0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <ItemsControl ItemsSource="{Binding Exports}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0 0 0 5">
+                        <Border Background="White" CornerRadius="10">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="10" Direction="-90" BlurRadius="20" Opacity="0.2"/>
+                            </Border.Effect>
+                        </Border>
+                        <Border BorderThickness="0.6" CornerRadius="10" Padding="5" Background="White">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0 1" EndPoint="0 0">
+                                    <GradientStop Color="{StaticResource GreyBlueColor}" Offset="1"/>
+                                    <GradientStop Color="White"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <StackPanel>
+                                <TextBlock Text="Static export" FontSize="20" Foreground="{StaticResource DarkGrayBrush}" Margin="0 0 0 5"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                    <TextBlock Text="{Binding Path}" Foreground="{StaticResource DarkGrayBrush}" VerticalAlignment="Center" FontSize="16"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Remove" Command="{Binding Remove}"/>
+                                    <Button Content="Export" Margin="5 0 0 0" Command="{Binding Export}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </StackPanel>
+</UserControl>

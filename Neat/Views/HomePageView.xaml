@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="Neat.Views.HomePageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:n="clr-namespace:Neat"
+             xmlns:vm="clr-namespace:Neat.ViewModels"
+             xmlns:v="clr-namespace:Neat.Views"
+             xmlns:sh="clr-namespace:Neat.Shaders"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:HomePageViewModel}"
+             FontFamily="{StaticResource NunitoFont}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                <GradientStop Color="White"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <Viewbox MaxWidth="400">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Package hub" HorizontalAlignment="Center" Foreground="{StaticResource DarkGrayBrush}"/>
+                    <TextBlock Text="DEV version" FontSize="8" HorizontalAlignment="Center" FontWeight="Light" Foreground="{StaticResource DarkGrayBrush}"/>
+                </StackPanel>
+            </Viewbox>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                <Grid Margin="20 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Cursor="Hand">
+                        <Grid MaxHeight="300" Width="240" Margin="10 0">
+                            <Border BorderThickness="0.6" Background="White" CornerRadius="5">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding OpenPackManager}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0 1" EndPoint="0 0">
+                                        <GradientStop Color="White"/>
+                                        <GradientStop Offset="1" Color="{StaticResource DarkGrayColor}"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="10" Direction="-90" Opacity="0.3" BlurRadius="20"/>
+                                </Border.Effect>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <fa:ImageAwesome Icon="Dropbox" Cursor="Hand" Margin="10 0 0 0" VerticalAlignment="Center" MaxWidth="100" HorizontalAlignment="Center" Foreground="{StaticResource DarkGrayBrush}"/>
+                                    <Viewbox Grid.Row="1">
+                                        <TextBlock Text="Packs" FontWeight="ExtraLight" Foreground="{StaticResource DarkGrayBrush}"/>
+                                    </Viewbox>
+                                    <TextBlock Grid.Row="2" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Browse and edit content packages" FontWeight="ExtraLight" Foreground="{StaticResource DarkGrayBrush}"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="20 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Cursor="Hand">
+                        <Grid MaxHeight="300" Width="240" Margin="10 0">
+                            <Border BorderThickness="0.6" Background="White" CornerRadius="5">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding OpenFlowManager}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0 1" EndPoint="0 0">
+                                        <GradientStop Color="White"/>
+                                        <GradientStop Offset="1" Color="{StaticResource DarkGrayColor}"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="10" Direction="-90" Opacity="0.3" BlurRadius="20"/>
+                                </Border.Effect>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <fa:ImageAwesome Icon="Random" Cursor="Hand" Margin="10 0 0 0" VerticalAlignment="Center" MaxWidth="100" HorizontalAlignment="Center" Foreground="{StaticResource DarkGrayBrush}"/>
+                                    <Viewbox Grid.Row="1">
+                                        <TextBlock Text="Flow" FontWeight="ExtraLight" Foreground="{StaticResource DarkGrayBrush}"/>
+                                    </Viewbox>
+                                    <TextBlock Grid.Row="2" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Automate packages content flow" FontWeight="ExtraLight" Foreground="{StaticResource DarkGrayBrush}"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

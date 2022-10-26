@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:vm="clr-namespace:Neat.ViewModels"
+                    xmlns:v="clr-namespace:Neat.Views"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate DataType="{x:Type vm:CreatePackageDialogViewModel}">
+        <v:CreatePackageDialogView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:AddFilesDialogViewModel}">
+        <v:AddFilesDialogView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:FetchPackageDialogViewModel}">
+        <v:FetchPackagesDialogView/>
+    </DataTemplate>
+</ResourceDictionary>

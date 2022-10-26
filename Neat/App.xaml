@@ -1,0 +1,22 @@
+﻿<Application x:Class="Neat.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="GlobalContext/Resources/AppColors.xaml"/>
+                <ResourceDictionary Source="GlobalContext/Resources/Constants.xaml"/>
+                <ResourceDictionary Source="Converters/Converters.xaml"/>
+                <ResourceDictionary Source="Resources/ElementAnimations.xaml"/>
+                <ResourceDictionary Source="Resources/DialogResources.xaml"/>
+                <ResourceDictionary Source="Resources/AnticipantResources.xaml"/>
+                
+                <ui:ThemeResources />
+                <ui:XamlControlsResources />
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="NunitoFont">pack://application:,,,/Fonts/#Nunito</FontFamily>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

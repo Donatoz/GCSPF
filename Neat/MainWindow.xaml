@@ -1,0 +1,73 @@
+﻿<Window x:Class="Neat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:n="clr-namespace:Neat"
+        xmlns:vm="clr-namespace:Neat.ViewModels"
+        xmlns:v="clr-namespace:Neat.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        
+        d:DataContext="{d:DesignInstance vm:MainPageViewModel}"
+        mc:Ignorable="d"
+        FontFamily="{StaticResource NunitoFont}"
+        MouseDown="Window_MouseDown"
+        Name="MainWindowState"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        Title="Neat" MinHeight="800" MinWidth="1200">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MainWindowResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Border Background="White">
+            <Grid>
+                <ContentPresenter Content="{Binding CurrentPage}"/>
+
+                <Grid Visibility="{Binding Dialog, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Rectangle Fill="Black" Opacity="0.4">
+                        <Rectangle.Effect>
+                            <BlurEffect Radius="50"/>
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <StackPanel VerticalAlignment="Center">
+                        <Grid MaxWidth="500">
+                            <Border Background="White" CornerRadius="5" Height="Auto" Padding="10">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="25" Opacity="0.2"/>
+                                </Border.Effect>
+
+                                <ContentPresenter Content="{Binding Dialog}"/>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Visibility="{Binding Anticipant, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Rectangle Fill="Black" Opacity="0.4">
+                        <Rectangle.Effect>
+                            <BlurEffect Radius="50"/>
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <ContentPresenter Content="{Binding Anticipant}"/>
+                </Grid>
+            
+                <Grid Visibility="{Binding Notification, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Rectangle Fill="Black" Opacity="0.4">
+                        <Rectangle.Effect>
+                            <BlurEffect Radius="50"/>
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <ContentPresenter Content="{Binding Notification}"/>
+                </Grid>
+
+                <Grid Visibility="{Binding Popup, Converter={StaticResource NullToVisibilityConverter}}">
+                    <ContentPresenter Content="{Binding Popup}"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="Neat.Views.PackManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Neat.Views"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:n="clr-namespace:Neat"
+             xmlns:vm="clr-namespace:Neat.ViewModels"
+             xmlns:v="clr-namespace:Neat.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:PackManagerPageViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/PackageResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="Packages">
+                <MenuItem Header="Create new package" Command="{Binding AddPackage}"/>
+                <MenuItem Header="Open package" Command="{Binding OpenPackage}"/>
+                <Separator Visibility="{Binding LoadedPackages.Count, Converter={StaticResource IntToVisibilityConverter}}"/>
+                <MenuItem Header="Current packge" Visibility="{Binding LoadedPackages.Count, Converter={StaticResource IntToVisibilityConverter}}">
+                    <MenuItem Header="Save" Command="{Binding SavePackage}"/>
+                </MenuItem>
+                <Separator Visibility="{Binding LoadedPackages.Count, Converter={StaticResource IntToVisibilityConverter}}"/>
+                <MenuItem Header="Save all packages" Command="{Binding SaveAllPackages}" Visibility="{Binding LoadedPackages.Count, Converter={StaticResource IntToVisibilityConverter}}"/>
+                <MenuItem Header="Close all packages" Command="{Binding CloseAllPackages}" Visibility="{Binding LoadedPackages.Count, Converter={StaticResource IntToVisibilityConverter}}"/>
+            </MenuItem>
+
+            <MenuItem Header="Services">
+                <MenuItem Header="Cloud Service">
+                    <MenuItem Header="Reconnect" Command="{Binding ReconnectCloud}"/>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="API">
+                <MenuItem Header="Open in browser" Command="{Binding OpenApi}"/>
+            </MenuItem>
+
+            <MenuItem Header="Logs">
+                <MenuItem Header="Open logs folder"/>
+            </MenuItem>
+        </Menu>
+
+        <Rectangle MaxHeight="1" Margin="0 0 0 -35">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
+                    <GradientStop Color="{StaticResource DarkGrayColor}"/>
+                    <GradientStop Offset="0.5"/>
+                    <GradientStop Color="{StaticResource DarkGrayColor}" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <fa:ImageAwesome Icon="Home" Margin="10 0" Cursor="Hand" VerticalAlignment="Center" MaxWidth="20" HorizontalAlignment="Right" Foreground="{StaticResource DarkGrayBrush}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding GoBack}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </fa:ImageAwesome>
+
+        <Grid Grid.Row="1" Visibility="{Binding PackagesCount, Converter={StaticResource IntToVisibilityConverter}}">
+            <TabControl ItemsSource="{Binding LoadedPackages}" SelectedIndex="{Binding SelectedPackage, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding TabChanged}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding Header}"/>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding Content}"/>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+        </Grid>
+
+        <Grid Grid.Row="1" Visibility="{Binding PackagesCount, Converter={StaticResource IntToVisibilityConverter}, ConverterParameter={StaticResource BooleanFalse}}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <fa:ImageAwesome Icon="Info" VerticalAlignment="Center" MaxWidth="25" HorizontalAlignment="Center" Foreground="{StaticResource DarkGrayBrush}"/>
+                <TextBlock FontSize="30" Margin="50 20" Foreground="{StaticResource DarkGrayBrush}" TextWrapping="Wrap" TextAlignment="Center" Text="There are no currently loaded packages. Try to create/open one."/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 25">
+                    <Button Content="Create package" Command="{Binding AddPackage}"/>
+                    <Button Content="Open package" Margin="5 0 0 0" Command="{Binding OpenPackage}"/>
+                    <Button Content="Fetch package" Margin="5 0 0 0" Command="{Binding FetchPackage}"/>
+                </StackPanel>
+
+                <TextBlock Text="Available local packages" Margin="0 0 0 10" TextAlignment="Center" FontSize="20" FontWeight="Light" Foreground="{StaticResource DarkGrayBrush}" Visibility="{Binding AvailablePackages.Count, Converter={StaticResource IntToVisibilityConverter}}"/>
+                <ItemsControl ItemsSource="{Binding AvailablePackages}" Margin="0 0 0 10">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" MaxWidth="1000"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource GrayBrush}" Padding="5" CornerRadius="5" Cursor="Hand" Margin="5">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding Open}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                                <TextBlock Text="{Binding Name}" FontSize="18"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10" VerticalAlignment="Bottom">
+                <Border Padding="5 2" BorderThickness="1" BorderBrush="{StaticResource DarkGrayBrush}" CornerRadius="5">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="10" Height="10" DataContext="{Binding CloudServiceStatus}">
+                            <Ellipse.Style>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Fill" Value="{StaticResource GreyRedBrush}"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsAvailable.Value}" Value="True">
+                                            <Setter Property="Fill" Value="{StaticResource GreyGreenBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Ellipse.Style>
+                        </Ellipse>
+                        <TextBlock Text="Cloud service" Foreground="{StaticResource DarkGrayBrush}" FontSize="20" Margin="5 0 0 0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Neat.Views.PackageCloudFetchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:Neat.ViewModels"
+             xmlns:v="clr-namespace:Neat.Views"
+             xmlns:n="clr-namespace:Neat"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             
+             mc:Ignorable="d"
+             Background="White"
+             d:DataContext="{d:DesignInstance vm:PackageCloudFetchViewModel}"
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <StackPanel Margin="20">
+        <TextBlock Text="Package cloud fetch" FontSize="40" Foreground="{StaticResource DarkGrayBrush}" Margin="0 0 0 10"/>
+
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
+            <Border Padding="5 2" BorderThickness="1" BorderBrush="{StaticResource DarkGrayBrush}" CornerRadius="5">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="8" Height="8" DataContext="{Binding ServiceStatus}">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="{StaticResource GreyRedBrush}"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsAvailable.Value}" Value="True">
+                                        <Setter Property="Fill" Value="{StaticResource GreyGreenBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    <TextBlock Text="Service status" Foreground="{StaticResource DarkGrayBrush}" FontSize="17" Margin="5 0 0 0"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <TextBlock Text="Root" FontSize="24" Foreground="{StaticResource DarkGrayBrush}" FontWeight="Light"/>
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
+            <TextBox FontSize="20" Width="400" Text="{Binding Root, Mode=TwoWay}"/>
+        </StackPanel>
+
+        <TextBlock Text="Storage path" FontSize="24" Foreground="{StaticResource DarkGrayBrush}" FontWeight="Light"/>
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
+            <TextBox FontSize="20" Width="400" Text="{Binding CloudPath, Mode=TwoWay}"/>
+        </StackPanel>
+
+        <CheckBox Margin="0 0 0 10" Content="Add to sources"/>
+
+        <Button Content="Fetch" FontSize="20" Command="{Binding Fetch}"/>
+    </StackPanel>
+</UserControl>

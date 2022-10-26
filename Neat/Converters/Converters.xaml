@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:n="clr-namespace:Neat"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <n:BoolToVisibilityConverter
+         x:Key="BoolToCollapsedConverter"
+         TrueValue="Visible" FalseValue="Collapsed" />
+
+    <n:IntToVisibilityConverter x:Key="IntToVisibilityConverter" />
+    
+    <n:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    <n:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+
+    <n:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+</ResourceDictionary>
