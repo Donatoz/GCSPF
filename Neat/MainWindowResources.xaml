@@ -10,6 +10,10 @@
         <v:PackManagerView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:FlowManagerViewModel}">
+        <v:FlowManagerView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:NotificationViewModel}">
         <v:NotificationView/>
     </DataTemplate>

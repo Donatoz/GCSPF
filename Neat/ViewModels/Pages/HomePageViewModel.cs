@@ -21,7 +21,7 @@ namespace Neat.ViewModels
 
             OpenFlowManager = new RelayCommand(() =>
             {
-                WeakReferenceMessenger.Default.Send(NotificationMessage.NotImplementedMessage);
+                WeakReferenceMessenger.Default.Send(new PageChangedMessage(StaticPageNamespace.FlowManagerDescriptor));
             });
         }
     }

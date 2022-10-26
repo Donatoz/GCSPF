@@ -20,6 +20,7 @@ namespace Neat
 
         public HomePageViewModel HomePage { get; private set; }
         public PackManagerPageViewModel PackManagerPage { get; private set; }
+        public FlowManagerViewModel FlowManagerPage { get; private set; }
 
         private readonly Dictionary<string, ObservableObject> pagesMap;
 
@@ -27,11 +28,13 @@ namespace Neat
         {
             HomePage = new HomePageViewModel();
             PackManagerPage = new PackManagerPageViewModel();
+            FlowManagerPage = new FlowManagerViewModel();
 
             pagesMap = new Dictionary<string, ObservableObject>()
             {
                 { StaticPageNamespace.HomePageDescriptor, HomePage },
-                { StaticPageNamespace.PackManagerDescriptor, PackManagerPage }
+                { StaticPageNamespace.PackManagerDescriptor, PackManagerPage },
+                { StaticPageNamespace.FlowManagerDescriptor, FlowManagerPage }
             };
 
             ViewModel = new MainPageViewModel(HomePage, MainWindowState, this);
