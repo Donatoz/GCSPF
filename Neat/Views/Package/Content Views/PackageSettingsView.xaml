@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Neat.Views.PackageSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Neat.ViewModels"
+             xmlns:v="clr-namespace:Neat.Views"
+             xmlns:n="clr-namespace:Neat"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             
+             mc:Ignorable="d"
+             Background="White"
+             d:DataContext="{d:DesignInstance vm:PackageSettingsViewModel}"
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <StackPanel Margin="20">
+        <TextBlock Text="Package settings" FontSize="40" Foreground="{StaticResource DarkGrayBrush}" Margin="0 0 0 10"/>
+
+        <Expander Header="Common settings" FontSize="16" Margin="0 0 0 10">
+            <CheckBox Content="Save on close" IsChecked="{Binding Parent.SaveOnClose, Mode=TwoWay}" FontSize="16"/>
+        </Expander>
+        <Expander Header="Actions" FontSize="16" Margin="0 0 0 10">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Save package" Command="{Binding Save}"/>
+                <Button Content="Close package" Margin="5 0 0 0" Command="{Binding Close}"/>
+                <Button Content="Delete package" Margin="5 0 0 0" Command="{Binding Delete}"/>
+            </StackPanel>
+        </Expander>
+    </StackPanel>
+</UserControl>

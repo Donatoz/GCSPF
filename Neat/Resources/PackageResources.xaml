@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:vm="clr-namespace:Neat.ViewModels"
+                    xmlns:v="clr-namespace:Neat.Views"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate DataType="{x:Type vm:PackageHeaderViewModel}">
+        <v:PackageHeaderView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PackageContentViewModel}">
+        <v:PackageContentView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PackageGeneralInfoViewModel}">
+        <v:PackageGeneralInfoView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PackageFilesViewModel}">
+        <v:PackageFilesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PackageSettingsViewModel}">
+        <v:PackageSettingsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:PackageCloudFetchViewModel}">
+        <v:PackageCloudFetchView/>
+    </DataTemplate>
+</ResourceDictionary>

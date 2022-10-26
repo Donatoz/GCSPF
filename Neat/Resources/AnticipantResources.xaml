@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:vm="clr-namespace:Neat.ViewModels"
+                    xmlns:v="clr-namespace:Neat.Views"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate DataType="{x:Type vm:AnticipantViewModel}">
+        <v:AnticipantView/>
+    </DataTemplate>
+</ResourceDictionary>

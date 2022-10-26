@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Neat.Views.PackageFilesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:Neat.ViewModels"
+             xmlns:v="clr-namespace:Neat.Views"
+             xmlns:n="clr-namespace:Neat"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             
+             mc:Ignorable="d"
+             Background="White"
+             d:DataContext="{d:DesignInstance vm:PackageFilesViewModel}"
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <StackPanel Margin="20">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Package files" FontSize="40" Foreground="{StaticResource DarkGrayBrush}" Margin="0 0 0 10"/>
+            <Button Margin="15 0 0 0" Content="Add local" FontSize="16" Command="{Binding AddFile}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Filters" FontSize="20" Foreground="{StaticResource DarkGrayBrush}" FontWeight="Light"/>
+            <fa:ImageAwesome Icon="Search" MaxWidth="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 -5" Foreground="{StaticResource DarkGrayBrush}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 15">
+            <TextBox FontSize="20" Width="400"/>
+        </StackPanel>
+        <Grid Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="File name" FontSize="17"/>
+            <TextBlock Grid.Column="1" Text="File type" FontSize="17"/>
+            <TextBlock Grid.Column="2" Text="File size" FontSize="17"/>
+            <TextBlock Grid.Column="3" Text="Actions" FontSize="17"/>
+        </Grid>
+
+        <ItemsControl ItemsSource="{Binding Files}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#e2e2e2" Padding="8" Margin="0 0 0 5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Type}" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" FontSize="16" VerticalAlignment="Center">
+                            <Run Text="{Binding Size, Mode=OneWay}"/><Run Text=" MB"/>
+                            </TextBlock>
+                            <StackPanel Grid.Column="3">
+                                <Button Content="Remove" Command="{Binding Remove}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>
