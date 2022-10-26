@@ -40,34 +40,36 @@
             <TextBlock Grid.Column="3" Text="Actions" FontSize="17"/>
         </Grid>
 
-        <ItemsControl ItemsSource="{Binding Files}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border Background="#e2e2e2" Padding="8" Margin="0 0 0 5">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Type}" FontSize="16" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" FontSize="16" VerticalAlignment="Center">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Files}" VerticalAlignment="Top">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#e2e2e2" Padding="8" Margin="0 0 0 5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Name}" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Type}" FontSize="16" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="2" FontSize="16" VerticalAlignment="Center">
                             <Run Text="{Binding Size, Mode=OneWay}"/><Run Text=" MB"/>
-                            </TextBlock>
-                            <StackPanel Grid.Column="3">
-                                <Button Content="Remove" Command="{Binding Remove}"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                                </TextBlock>
+                                <StackPanel Grid.Column="3">
+                                    <Button Content="Remove" Command="{Binding Remove}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </StackPanel>
 </UserControl>
