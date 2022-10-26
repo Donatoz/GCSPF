@@ -149,6 +149,8 @@ namespace Neat.Models
 
             for (int i = Files.Count - 1; i >= 0; i--)
             {
+                if (File.Exists(path + $"\\{Files[i].Name}")) continue;
+
                 FileInfo? f = Files[i];
                 using (var source = File.Open(f.FullName, FileMode.Open))
                 {
